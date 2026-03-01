@@ -17,6 +17,7 @@ class BSTNode:
 
     def __init__(self, key):
         self.key = key
+        self.count = 1  # 重复值计数
         self.left = None
         self.right = None
 
@@ -49,7 +50,9 @@ class BST:
                     break
                 node = node.right
             else:
-                break  # 重复元素，不插入
+                # 重复元素，计数+1
+                node.count += 1
+                break
 
     def search(self, key):
         """
@@ -80,6 +83,12 @@ class BST:
             node.right = self._delete(node.right, key)
         else:
             # 找到目标节点
+            if node.count > 1:
+                # 还有重复值，只减计数
+                node.count -= 1
+                return node
+
+            # count == 1，真正删除节点
             if not node.left:
                 return node.right
             if not node.right:
@@ -91,6 +100,7 @@ class BST:
                 min_node = min_node.left
 
             node.key = min_node.key
+            node.count = min_node.count
             node.right = self._delete(node.right, min_node.key)
 
         return node
@@ -151,7 +161,7 @@ class BST:
 
     def inorder(self):
         """
-        中序遍历（返回有序列表）
+        中序遍历（返回有序列表，重复值会出现多次）
         时间复杂度：O(n)
         """
         result = []
@@ -160,11 +170,23 @@ class BST:
             if not node:
                 return
             _inorder(node.left)
-            result.append(node.key)
+            result.extend([node.key] * node.count)
             _inorder(node.right)
 
         _inorder(self.root)
         return result
+
+    def count_of(self, key):
+        """
+        查询某个值的出现次数
+        时间复杂度：平均 O(log n)，最坏 O(n)
+        """
+        node = self.root
+        while node:
+            if key == node.key:
+                return node.count
+            node = node.left if key < node.key else node.right
+        return 0
 
 
 if __name__ == '__main__':
@@ -241,3 +263,30 @@ if __name__ == '__main__':
 
     print(f"查找 [3, 7] 范围: {range_query(bst2, 3, 7)}")  # [3, 4, 5, 6, 7]
     print(f"查找 [4, 8] 范围: {range_query(bst2, 4, 8)}")  # [4, 5, 6, 7, 8]
+
+    # 示例 6：重复值处理
+    print("\n=== 示例 6：重复值处理 ===")
+    bst3 = BST()
+
+    # 插入重复值
+    for x in [5, 3, 7, 3, 5, 3]:
+        bst3.insert(x)
+
+    print(f"插入 [5, 3, 7, 3, 5, 3]")
+    print(f"中序遍历: {bst3.inorder()}")  # [3, 3, 3, 5, 5, 7]
+    print(f"3 出现次数: {bst3.count_of(3)}")  # 3
+    print(f"5 出现次数: {bst3.count_of(5)}")  # 2
+    print(f"7 出现次数: {bst3.count_of(7)}")  # 1
+
+    # 删除重复值
+    bst3.delete(3)
+    print(f"\n删除一个 3 后:")
+    print(f"中序遍历: {bst3.inorder()}")  # [3, 3, 5, 5, 7]
+    print(f"3 出现次数: {bst3.count_of(3)}")  # 2
+
+    bst3.delete(3)
+    bst3.delete(3)
+    print(f"\n再删除两个 3 后:")
+    print(f"中序遍历: {bst3.inorder()}")  # [5, 5, 7]
+    print(f"3 出现次数: {bst3.count_of(3)}")  # 0
+    print(f"查找 3: {bst3.search(3)}")  # False

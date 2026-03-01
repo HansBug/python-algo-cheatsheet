@@ -23,6 +23,7 @@ class TreapNode:
     def __init__(self, key):
         self.key = key
         self.priority = random.random()  # 随机优先级
+        self.count = 1  # 重复值计数
         self.left = None
         self.right = None
 
@@ -84,7 +85,9 @@ class Treap:
             # 维护堆性质：如果右子节点优先级更高，左旋
             if node.right.priority > node.priority:
                 node = self._rotate_left(node)
-        # key == node.key: 重复元素，不插入
+        else:
+            # key == node.key: 重复元素，计数+1
+            node.count += 1
 
         return node
 
@@ -104,7 +107,13 @@ class Treap:
         elif key > node.key:
             node.right = self._delete(node.right, key)
         else:
-            # 找到目标节点，通过旋转将其下沉到叶子节点
+            # 找到目标节点
+            if node.count > 1:
+                # 还有重复值，只减计数
+                node.count -= 1
+                return node
+
+            # count == 1，真正删除节点
             if not node.left:
                 return node.right
             if not node.right:
@@ -188,7 +197,7 @@ class Treap:
 
     def inorder(self):
         """
-        中序遍历（返回有序列表）
+        中序遍历（返回有序列表，重复值会出现多次）
         时间复杂度：O(n)
         """
         result = []
@@ -197,11 +206,23 @@ class Treap:
             if not node:
                 return
             _inorder(node.left)
-            result.append(node.key)
+            result.extend([node.key] * node.count)
             _inorder(node.right)
 
         _inorder(self.root)
         return result
+
+    def count_of(self, key):
+        """
+        查询某个值的出现次数
+        时间复杂度：期望 O(log n)
+        """
+        node = self.root
+        while node:
+            if key == node.key:
+                return node.count
+            node = node.left if key < node.key else node.right
+        return 0
 
 
 class TreapWithSize:
@@ -211,7 +232,8 @@ class TreapWithSize:
         def __init__(self, key):
             self.key = key
             self.priority = random.random()
-            self.size = 1  # 子树大小
+            self.size = 1  # 子树大小（包含重复值）
+            self.count = 1  # 重复值计数
             self.left = None
             self.right = None
 
@@ -224,7 +246,7 @@ class TreapWithSize:
     def _update_size(self, node):
         """更新子树大小"""
         if node:
-            node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
+            node.size = node.count + self._get_size(node.left) + self._get_size(node.right)
 
     def _rotate_right(self, node):
         left = node.left
@@ -257,6 +279,9 @@ class TreapWithSize:
             node.right = self._insert(node.right, key)
             if node.right.priority > node.priority:
                 node = self._rotate_left(node)
+        else:
+            # 重复元素，计数+1
+            node.count += 1
 
         self._update_size(node)
         return node
@@ -390,3 +415,30 @@ if __name__ == '__main__':
 
     print(f"查找 [3, 7] 范围: {range_query(treap3, 3, 7)}")  # [3, 4, 5, 6, 7]
     print(f"查找 [4, 8] 范围: {range_query(treap3, 4, 8)}")  # [4, 5, 6, 7, 8]
+
+    # 示例 7：重复值处理
+    print("\n=== 示例 7：重复值处理 ===")
+    treap4 = Treap()
+
+    # 插入重复值
+    for x in [5, 3, 7, 3, 5, 3]:
+        treap4.insert(x)
+
+    print(f"插入 [5, 3, 7, 3, 5, 3]")
+    print(f"中序遍历: {treap4.inorder()}")  # [3, 3, 3, 5, 5, 7]
+    print(f"3 出现次数: {treap4.count_of(3)}")  # 3
+    print(f"5 出现次数: {treap4.count_of(5)}")  # 2
+    print(f"7 出现次数: {treap4.count_of(7)}")  # 1
+
+    # 删除重复值
+    treap4.delete(3)
+    print(f"\n删除一个 3 后:")
+    print(f"中序遍历: {treap4.inorder()}")  # [3, 3, 5, 5, 7]
+    print(f"3 出现次数: {treap4.count_of(3)}")  # 2
+
+    treap4.delete(3)
+    treap4.delete(3)
+    print(f"\n再删除两个 3 后:")
+    print(f"中序遍历: {treap4.inorder()}")  # [5, 5, 7]
+    print(f"3 出现次数: {treap4.count_of(3)}")  # 0
+    print(f"查找 3: {treap4.search(3)}")  # False

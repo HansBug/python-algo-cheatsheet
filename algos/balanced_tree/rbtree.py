@@ -11,6 +11,10 @@
 4. 红色节点的子节点必须是黑色
 5. 从任一节点到其叶子节点的所有路径包含相同数量的黑色节点
 
+重复值处理：
+本实现采用"允许重复节点"的方案，重复值会被插入到右子树。
+这是最简单的方案，适合作为科普展示。实际应用中可以考虑使用 count 字段。
+
 支持 Python 3.7+
 """
 
@@ -106,10 +110,9 @@ class RBTree:
             parent = current
             if node.key < current.key:
                 current = current.left
-            elif node.key > current.key:
-                current = current.right
             else:
-                return  # 重复元素，不插入
+                # 重复元素插入到右子树（简单方案）
+                current = current.right
 
         node.parent = parent
 
@@ -391,8 +394,31 @@ if __name__ == '__main__':
     rbt3.delete(11)
     print(f"删除 11 后: {rbt3.inorder()}")
 
-    # 示例 4：性能对比说明
-    print("\n=== 示例 4：为什么不推荐在笔试中使用红黑树？ ===")
+    # 示例 4：重复值处理
+    print("\n=== 示例 4：重复值处理 ===")
+    rbt4 = RBTree()
+
+    # 插入重复值
+    for x in [5, 3, 7, 3, 5, 3]:
+        rbt4.insert(x)
+
+    print(f"插入 [5, 3, 7, 3, 5, 3]")
+    print(f"中序遍历: {rbt4.inorder()}")  # [3, 3, 3, 5, 5, 7]
+    print("注意：重复值被插入到右子树，会在中序遍历中出现多次")
+
+    # 删除重复值
+    rbt4.delete(3)
+    print(f"\n删除一个 3 后:")
+    print(f"中序遍历: {rbt4.inorder()}")  # [3, 3, 5, 5, 7]
+
+    rbt4.delete(3)
+    rbt4.delete(3)
+    print(f"\n再删除两个 3 后:")
+    print(f"中序遍历: {rbt4.inorder()}")  # [5, 5, 7]
+    print(f"查找 3: {rbt4.search(3)}")  # False
+
+    # 示例 5：性能对比说明
+    print("\n=== 示例 5：为什么不推荐在笔试中使用红黑树？ ===")
     print("1. 代码量大：本文件 300+ 行，Treap 只需 100 行")
     print("2. 实现复杂：需要处理 8 种旋转情况（插入 4 种 + 删除 4 种）")
     print("3. 容易出错：颜色维护、NIL 节点处理、父指针更新等")

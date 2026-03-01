@@ -81,7 +81,31 @@ Treap = Tree + Heap，结合了二叉搜索树和堆的性质：
 
 通过随机优先级，Treap 期望高度为 O(log n)，避免退化。
 
-### 适合速记的 Treap 实现
+### 重复值处理方案
+
+**方案一：使用 `count` 字段（推荐）**
+
+在节点中添加 `count` 字段记录重复次数：
+
+- ✅ 空间效率高，相同值只存一个节点
+- ✅ 树高度 = O(log 不同值数量)，性能更好
+- ✅ 前驱/后继操作不需要改，天然返回"不同的值"
+- ✅ 适合"第 k 小的不同值"等常见题型
+- ⚠️ 代码稍复杂，需要维护 `count` 字段
+
+**方案二：保留重复节点**
+
+允许重复值作为独立节点存在（插入到右子树）：
+
+- ✅ 代码简单，几乎不用改
+- ✅ 逻辑清晰，每个值就是一个节点
+- ❌ 空间浪费，大量重复值时树会很大
+- ❌ 树高度 = O(log 总元素数量)，性能下降
+- ❌ 前驱/后继可能返回相同值，需要额外处理
+
+**笔试建议**：优先使用方案一（`count` 字段），代码量增加不多，但性能和适用性更好。
+
+### 适合速记的 Treap 实现（支持重复值）
 
 ```python
 import random
@@ -91,6 +115,7 @@ class TreapNode:
     def __init__(self, key):
         self.key = key
         self.priority = random.random()  # 随机优先级
+        self.count = 1  # 重复值计数
         self.left = self.right = None
 
 
@@ -154,6 +179,9 @@ class Treap:
             # 维护堆性质：如果右子节点优先级更高，左旋
             if node.right.priority > node.priority:
                 node = self._rotate_left(node)
+        else:
+            # key == node.key: 重复元素，计数+1
+            node.count += 1
         return node
 
     def delete(self, key):
@@ -169,7 +197,13 @@ class Treap:
         elif key > node.key:
             node.right = self._delete(node.right, key)
         else:
-            # 找到目标节点，通过旋转将其下沉到叶子节点
+            # 找到目标节点
+            if node.count > 1:
+                # 还有重复值，只减计数
+                node.count -= 1
+                return node
+
+            # count == 1，真正删除节点
             if not node.left:
                 return node.right
             if not node.right:
@@ -434,6 +468,17 @@ print(bst.max_value())  # 9
 ## 方案三：红黑树（仅供参考）
 
 红黑树是工业级平衡树（C++ STL、Java TreeMap 的底层实现），但**不推荐在笔试中手写**。
+
+### 重复值处理
+
+本实现采用**允许重复节点**的方案：重复值会被插入到右子树，作为独立节点存在。
+
+- ✅ 实现最简单，只需修改一行代码
+- ✅ 适合作为科普展示
+- ❌ 空间效率低，树会变大
+- ❌ 前驱/后继可能返回相同值
+
+**注意**：实际应用中可以考虑使用 `count` 字段（参考 Treap 的实现），但会让已经很复杂的红黑树代码更加复杂。
 
 ### 红黑树的 5 条性质
 
