@@ -70,6 +70,17 @@
 - **查找根**：`if self.p[x] != x: self.p[x] = self.find(self.p[x])` - 递归查找并压缩路径
 - **合并集**：`self.p[self.find(x)] = self.find(y)` - 将一个根指向另一个根
 
+## 复杂性速览
+
+说明：以下分数由 `python -m tools.interview_complexity` 对对应实现类的核心代码测得。分数越低，越适合现场手写。
+
+| 方案 | 核心代码口径 | 复杂性分数 | 等级 | 面试建议 |
+|------|-------------|----------|------|---------|
+| 极简版并查集 | [union_find_simple.py](union_find_simple.py) 里的 `UnionFind` 类 | `9.7` | 正常可写 | 推荐，路径压缩已经足够能打 |
+| 按秩合并版并查集 | [union_find_basic.py](union_find_basic.py) 里的 `UnionFind` 类 | `18.3` | 现场高风险 | 只有特别在意极限性能时再上 |
+
+按秩合并确实更完整，但从面试手写体感上看，复杂性已经明显上去了，性价比并不高。
+
 ## 方案一：极简版实现（推荐）
 
 ```python
