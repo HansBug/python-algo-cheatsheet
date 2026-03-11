@@ -51,6 +51,14 @@
     - 例如：二叉树层序遍历、最短跳数问题
     - 优势：写法直观，不容易乱
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：队列](https://www.hello-algo.com/chapter_stack_and_queue/queue/) - 入门最直观，基础操作、数组队列和链式队列都讲得比较顺
+- [数据结构电子讲义：栈和队列的概念与实现](https://www.xmut-lby.work/ds-book/03/1.implementation.html) - 适合补顺序队列、循环队列这些容易在面试里被追问的细节
+- [labuladong：队列实现栈以及栈实现队列](https://labuladong.online/zh/algo/data-structure/stack-queue/) - 更偏题目和接口设计视角，适合把基础概念和刷题场景串起来
+
 ## 笔试场景建议
 
 ### 推荐策略

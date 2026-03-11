@@ -44,6 +44,13 @@
 5. **在线最值维护**：元素持续流入，同时过期旧元素
     - 这类题不一定明写“滑动窗口”，但套路通常一样
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [OI Wiki：单调队列](https://oiwiki.org/ds/monotonous-queue/) - 模板和典型应用都比较系统，适合先建立整体认知
+- [labuladong：单调队列解题模板](https://labuladong.online/zh/algo/data-structure/monotonic-queue/) - 更偏滑动窗口题目视角，适合把“过期元素”和“尾部淘汰元素”彻底分清
+
 ## 笔试场景建议
 
 ### 推荐策略

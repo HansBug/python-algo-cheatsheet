@@ -44,6 +44,14 @@
 5. **堆排序**：原地排序算法
     - 时间复杂度：O(n log n)，空间复杂度：O(1)
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：堆](https://www.hello-algo.com/chapter_heap/heap/) - 图示和代码都比较清楚，适合先理解堆的结构和基本操作
+- [Hello 算法：建堆操作](https://www.hello-algo.com/chapter_heap/build_heap/) - 对 `heapify` 讲得更细，适合补“为什么建堆是 O(n)”这个高频疑问
+- [OI Wiki：堆](https://oiwiki.org/ds/heap/) - 更偏竞赛和模板视角，适合把概念和代码实现对应起来
+
 ## 笔试场景建议
 
 ### 推荐策略

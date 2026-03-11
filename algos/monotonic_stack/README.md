@@ -43,6 +43,13 @@
 5. **温度 / 股票跨度这类最近更大元素题**：本质就是“最近边界”
     - 时间复杂度：O(n)，模板高度统一
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [OI Wiki：单调栈](https://oiwiki.org/ds/monotonous-stack/) - 模板、思路和常见应用都比较全，适合系统打底
+- [labuladong：单调栈解题模板](https://labuladong.online/zh/algo/data-structure/monotonic-stack/) - 更偏刷题视角，适合把“下一个更大元素”这类套路彻底吃透
+
 ## 笔试场景建议
 
 ### 推荐策略

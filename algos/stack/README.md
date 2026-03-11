@@ -48,6 +48,14 @@
 5. **单调栈题型**：找下一个更大/更小元素、柱状图面积等
     - 时间复杂度：通常是 O(n)，优于暴力的 O(n^2)
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：栈](https://www.hello-algo.com/chapter_stack_and_queue/stack/) - 图示很直观，适合先把栈的定义、基本操作和底层实现过一遍
+- [数据结构电子讲义：栈和队列的概念与实现](https://www.xmut-lby.work/ds-book/03/1.implementation.html) - 更偏教材风格，适合补顺序栈、链栈这些实现细节
+- [labuladong：队列实现栈以及栈实现队列](https://labuladong.online/zh/algo/data-structure/stack-queue/) - 更偏面试题视角，适合把基础结构和题目套路连起来
+
 ## 笔试场景建议
 
 ### 推荐策略

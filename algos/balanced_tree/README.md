@@ -49,6 +49,15 @@
     - 例如：实时统计排名变化
     - 时间复杂度：O(log n)（需要维护子树大小）
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：二叉搜索树](https://www.hello-algo.com/chapter_tree/binary_search_tree/) - 先把最简单 BST 的性质、查找和插入过程看明白，再学平衡化会顺很多
+- [Hello 算法：AVL 树](https://www.hello-algo.com/chapter_tree/avl_tree/) - 图示非常直观，适合先把“旋转为什么能保持平衡”看明白
+- [洛谷专栏：入门平衡树 Treap](https://www.luogu.com/article/tyvidvb6) - 更偏竞赛和模板视角，适合直接对应到笔试手写代码
+- [GeeksforGeeks 中文：红黑树简介](https://www.geeksforgeeks.org/zh-hans/dsa/introduction-to-red-black-tree/) - 适合专门补红黑树的性质、颜色规则和为什么它比 AVL 更常见
+
 ## 笔试场景建议
 
 ### 推荐策略

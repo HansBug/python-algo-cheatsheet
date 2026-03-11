@@ -43,6 +43,14 @@
 5. **理解比较类排序的平均复杂度**
     - 平均 O(n log n)，是很多工程排序和选择算法讨论的基础
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：快速排序](https://www.hello-algo.com/chapter_sorting/quick_sort/) - 图示和 partition 过程讲得清楚，适合先把整体思路过一遍
+- [菜鸟教程：Python 快速排序](https://www.runoob.com/python3/python-quicksort.html) - 代码例子直接，适合快速对照 Python 写法
+- [菜鸟教程专题：快速排序](https://www.runoob.com/w3cnote/quick-sort.html) - 更偏算法步骤拆解，适合补 pivot 和分区过程的理解
+
 ## 笔试场景建议
 
 ### 推荐策略

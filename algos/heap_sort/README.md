@@ -43,6 +43,14 @@
 5. **Top K / 优先队列思维的延伸**
     - 学会堆排序后，建堆和下沉这套操作会更熟
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：堆排序](https://www.hello-algo.com/chapter_sorting/heap_sort/) - 最适合先建立整体流程感，建堆、交换、下沉讲得比较顺
+- [菜鸟教程：Python 堆排序](https://www.runoob.com/python3/python-heap-sort.html) - 代码例子直接，适合快速对照 Python 写法
+- [菜鸟教程专题：堆排序](https://www.runoob.com/w3cnote/heap-sort.html) - 更偏算法步骤拆解，适合把“为什么这样下沉”再看一遍
+
 ## 笔试场景建议
 
 ### 推荐策略

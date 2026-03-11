@@ -48,6 +48,14 @@
 5. **等价类划分**：将元素按等价关系分组
     - 例如：字符串相似度分组、账号合并
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [OI Wiki：并查集](https://oiwiki.org/ds/dsu/) - 模板、优化和应用场景都比较系统，适合先打整体基础
+- [labuladong：Union-Find 并查集详解](https://labuladong.online/zh/algo/data-structure/union-find/) - 更偏题目视角，适合把路径压缩和连通性问题结合起来理解
+- [C 语言中文网：并查集（Union-Find）算法详解](https://c.biancheng.net/view/olbfcce.html) - 讲法更偏入门，适合补“为什么这样合并”的直觉
+
 ## 笔试场景建议
 
 ### 推荐策略

@@ -43,6 +43,14 @@
 5. **需要稳定性**
     - 相等元素顺序不能乱时，归并排序比快排更合适
 
+## 推荐学习资料
+
+如果你想系统学习这个算法，建议按下面顺序看这些中文资料：
+
+- [Hello 算法：归并排序](https://www.hello-algo.com/chapter_sorting/merge_sort/) - 拆分和 merge 过程讲得很顺，适合先建立整体框架
+- [菜鸟教程：Python 归并排序](https://www.runoob.com/python3/python-merge-sort.html) - 例子直接，适合快速对照 Python 写法
+- [菜鸟教程专题：归并排序](https://www.runoob.com/w3cnote/merge-sort.html) - 更偏算法过程拆解，适合补左右指针和收尾逻辑
+
 ## 笔试场景建议
 
 ### 推荐策略
