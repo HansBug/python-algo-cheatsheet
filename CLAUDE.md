@@ -476,9 +476,68 @@ python3.8 algos/heap/heapq_native.py
 python3.12 algos/heap/heapq_native.py
 ```
 
+### 配置 tools/ 环境
+
+`algos/` 目录下的模板仍然坚持纯标准库，但 `tools/` 里的本地分析工具可以使用第三方依赖。
+
+当前 `tools/interview_complexity.py` 依赖 `complexipy` 和 `radon`，因此需要单独安装依赖，且运行环境要求 **Python 3.8+**。
+
+```bash
+# 推荐：单独准备一个虚拟环境
+python3.12 -m venv .venv
+source .venv/bin/activate
+
+# 安装工具依赖
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 使用面试手写复杂度工具
+
+```bash
+# 分析整个文件，默认输出每个函数/方法的摘要
+python -m tools.interview_complexity -i algos/heap/heap_manual.py
+
+# 精查某个符号（函数 / 方法 / 类）
+python -m tools.interview_complexity -i algos/heap/heap_manual.py -s Heap._sift_down
+
+# 输出 JSON，方便后续脚本接入
+python -m tools.interview_complexity -i algos/heap/heap_manual.py -s Heap.push --json
+
+# 如果你明确想把 __main__ / demo / example 这类示例代码也算进去
+python -m tools.interview_complexity -i algos/heap/heapq_native.py --include-examples
+
+# 直接分析一段代码字符串
+python -m tools.interview_complexity -c "for i in range(n):\n    if a[i] > 0:\n        ans += 1"
+```
+
+使用说明：
+
+- 默认会**严格聚焦核心代码**：优先分析函数 / 方法 / 类，不把 `if __name__ == '__main__'`、`demo` / `example` / `test` 命名的示例代码纳入摘要
+- 如果你确实要分析示例代码，可以显式加 `--include-examples`
+- 使用 `-s/--symbol` 可以对单个符号输出完整报告
+- 评分越高，越偏向“现场手写容易出错”；等级分为“很容易手写 / 正常可写 / 坑比较多 / 现场高风险”
+- 这个工具是为了衡量**面试手写体感**，不是严格的学术复杂度评估器；它会结合 `cognitive complexity`、`cyclomatic complexity` 和一些 AST 风险规则一起打分
+
+### AI / Agent 使用约定
+
+当 AI agent 需要评估一段实现的“面试手写复杂度”时，遵循以下约定：
+
+- **优先使用** `python -m tools.interview_complexity -c "..."`，而不是直接把整个文件路径丢给 `-i`
+- 传给 `-c` 的内容必须尽量只保留**核心代码**
+  - 例如：核心函数、核心方法、核心循环、核心状态转移逻辑
+  - 不要把 `if __name__ == '__main__'`、示例输入输出、print 调试、usage/demo/example/test 代码一并传进去
+- 如果文件里既有实现又有大量演示代码，先提取实现片段，再用 `-c` 分析
+- 只有在以下场景才优先考虑 `-i`
+  - 需要快速扫描整份实现文件，找出最复杂的函数/方法
+  - 代码已经天然按函数/方法拆得很干净，文件里几乎没有示例部分
+- 如果只是想比较两种写法谁更适合面试现场手写，优先把两段**最小核心实现**分别传给 `-c`，不要让外围样板代码干扰结果
+
 ## 开发注意事项
 
 1. **纯原生库**：不要引入第三方依赖，确保 OJ 平台兼容性
+   - 该要求严格适用于 `algos/` 下的算法模板
+   - `tools/` 下的本地分析工具允许使用第三方依赖，但必须写入根目录 `requirements.txt`
 2. **版本兼容**：避免使用 Python 3.8+ 专属特性（如海象运算符 `:=`）
 3. **性能优化**：针对 Python 的性能特点优化，避免常见陷阱
 4. **代码简洁**：优先考虑可读性和可记忆性，而非过度优化
