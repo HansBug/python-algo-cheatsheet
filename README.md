@@ -49,6 +49,9 @@
 | [栈（Stack）](algos/stack/README.md) | 后进先出结构，支持 O(1) 摊还入栈和出栈 | Python 直接用 `list` 即可，适合括号匹配、表达式求值、迭代 DFS、单调栈基础题等问题 | `0.0`（很容易手写） |
 | [队列（Queue）](algos/queue/README.md) | 先进先出结构，支持 O(1) 入队和出队 | 优先使用 `collections.deque`，不想 import 时可用 `list + 头指针`，适合 BFS、拓扑排序、多源扩散等问题 | `0.0`（很容易手写） |
 | [堆（Heap）](algos/heap/README.md)                        | 完全二叉树结构，支持 O(log n) 插入和删除最值 | 优先使用 `heapq` 标准库，适合 Top K、优先级队列、动态维护最值等问题 | `0.0`（很容易手写） |
+| [快速排序（Quick Sort）](algos/quick_sort/README.md) | 经典分治排序，平均 O(n log n) 完成原地排序 | 题目只要排序结果时优先用 `sorted()`；面试官明确要求写快排时，用手写 Lomuto 分区模板 | `12.7`（坑比较多） |
+| [归并排序（Merge Sort）](algos/merge_sort/README.md) | 经典分治排序，稳定地以 O(n log n) 完成排序 | 题目只要结果时优先用 `sorted()`；面试官要求稳定排序或统计逆序对时，用递归 merge 模板 | `37.5`（现场高风险） |
+| [堆排序（Heap Sort）](algos/heap_sort/README.md) | 基于最大堆的原地排序，时间复杂度稳定 O(n log n) | 题目只要结果时优先用 `sorted()`；面试官要求手写堆排序时，用最大堆 + `sift_down` 模板 | `24.9`（现场高风险） |
 | [单调栈（Monotonic Stack）](algos/monotonic_stack/README.md) | 维护单调性的栈结构，支持 O(n) 找最近更大/更小边界 | 直接用 `list` 存索引，适合下一个更大元素、每日温度、柱状图最大矩形、子数组贡献法等问题 | `5.9`（很容易手写） |
 | [单调队列（Monotonic Queue）](algos/monotonic_queue/README.md) | 维护窗口最值的双端队列，支持 O(n) 滑动窗口查询 | 优先使用 `collections.deque` 存索引，适合滑动窗口最值、前缀和优化、区间 DP 优化等问题 | `16.3`（坑比较多） |
 | [并查集（Union-Find）](algos/union_find/README.md) | 处理不相交集合的合并与查询，支持 O(α(n)) ≈ O(1) 操作 | 极简版只需 10 行代码，适合连通性判断、环检测、最小生成树、等价类划分等问题 | `9.7`（正常可写） |
@@ -80,6 +83,10 @@
   * [x] 单调队列
   * [x] 并查集
   * [x] 平衡树
+* [x] 排序算法
+  * [x] 快速排序
+  * [x] 归并排序
+  * [x] 堆排序
 * [ ] 搜索算法
   * [ ] 二分查找
   * [ ] DFS
